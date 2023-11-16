@@ -4,8 +4,6 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from routes import sensor
-from db import db
-import mysql.connector
 
 app = FastAPI()
 
@@ -16,12 +14,7 @@ class Item(BaseModel):
 
 app.include_router(sensor.router)
 
-mydb = mysql.connector.connect(
-    host = db.mydb().host, 
-    user = db.mydb().username,
-    password = db.mydb().password,
-    database = db.mydb().database
-)
+
 
 @app.get("/home")
 async def root():
