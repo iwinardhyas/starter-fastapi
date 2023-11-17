@@ -6,11 +6,11 @@ from models import model
 import json
 
 mydb = mysql.connector.connect(
-    host = db.mydb2().host,
-    port = db.mydb2().port,
-    user = db.mydb2().username,
-    password = db.mydb2().password,
-    database = db.mydb2().database
+    host = db.mydb3().host,
+    port = db.mydb3().port,
+    user = db.mydb3().username,
+    password = db.mydb3().password,
+    database = db.mydb3().database
 )
 
 if mydb.is_connected():
