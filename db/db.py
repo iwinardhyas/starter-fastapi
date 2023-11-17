@@ -14,3 +14,11 @@ class mydb2(object):
         self.database = "test"
         self.username = "user_test"
         self.password = "user_test*123#"
+
+class mydb3(object):
+    def __init__(self):
+        self.host = "process.env.HOST"
+        self.port = "process.env.PORT"
+        self.database = "process.env.DATABASE"
+        self.username = "process.env.USERNAME"
+        self.password = "process.env.PASSWORD"

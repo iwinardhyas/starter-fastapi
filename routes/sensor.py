@@ -1,7 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 import mysql.connector
 from db import db
 import datetime
+from models import model
+import json
 
 mydb = mysql.connector.connect(
     host = db.mydb2().host,
@@ -20,15 +22,27 @@ router = APIRouter(
 )
 
 @router.post('/send_data')
-def send_data():
+async def send_data(item_sensor : model.Item_sensor):
+    temp = item_sensor.temp
+    hum = item_sensor.hum
+    loc = item_sensor.loc
     date = datetime.datetime.now()
     cursor = mydb.cursor()
     sql = "INSERT INTO dht11 (timestamp, loc, hum, temp) VALUES (%s, %s, %s, %s)"
-    val = (str(date),'1','2','3')
+    val = (str(date),loc,hum,temp)
 
     cursor.execute(sql, val)
 
     mydb.commit()
-    return{
-        "got it testing"
-    }
+    return item_sensor
+
+@router.get('/get_data')
+def get_data():
+    cursor = mydb.cursor()
+    sql = "SELECT * FROM dht11"
+    cursor.execute(sql)
+
+    result = cursor.fetchmany(100)
+
+    print(result)
+    return result
